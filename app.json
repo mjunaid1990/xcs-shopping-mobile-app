@@ -1,11 +1,18 @@
 {
   "expo": {
-    "name": "xcs-shopping-mobile-app",
+    "name": "XCS Shopping",
     "slug": "xcs-shopping-mobile-app",
     "version": "1.0.0",
+    "scheme": "xcsshop",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#5B4CFF"
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -18,7 +25,13 @@
       }
     },
     "web": {
+      "bundler": "metro",
+      "output": "single",
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router", "expo-splash-screen"],
+    "experiments": {
+      "typedRoutes": false
     }
   }
 }
