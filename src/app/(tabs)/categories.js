@@ -1,9 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useMemo } from 'react';
-import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import HScroll from '../../components/HScroll';
 import ProductCard from '../../components/ProductCard';
 import { categories, getProductsByCategory, sortOptions, sortProducts } from '../../data/products';
 import { colors, radius, shadow } from '../../theme';
@@ -44,11 +45,7 @@ export default function CategoriesScreen() {
           </Pressable>
         </View>
 
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.chipRow}
-        >
+        <HScroll contentContainerStyle={styles.chipRow} arrows={false}>
           {[...categories, ALL].map((category) => {
             const active = category.id === categoryId;
             return (
@@ -72,7 +69,7 @@ export default function CategoriesScreen() {
               </Pressable>
             );
           })}
-        </ScrollView>
+        </HScroll>
 
         <View style={styles.sortRow}>
           <Text style={styles.sortLabel}>Sort</Text>

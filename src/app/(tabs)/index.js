@@ -5,7 +5,6 @@ import React, { useMemo, useState } from 'react';
 import {
   FlatList,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -13,31 +12,13 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import HScroll from '../../components/HScroll';
 import ProductCard from '../../components/ProductCard';
+import ProductRail from '../../components/ProductRail';
+import PromoCarousel from '../../components/PromoCarousel';
 import { useCart } from '../../context/CartContext';
 import { categories, products, searchProducts } from '../../data/products';
 import { colors, gradients, radius, shadow } from '../../theme';
-
-const PROMOS = [
-  {
-    id: 'mid-season',
-    title: 'Mid-season sale',
-    subtitle: 'Up to 40% off premium audio',
-    cta: 'Shop audio',
-    category: 'audio',
-    gradient: gradients.primary,
-    icon: 'headset',
-  },
-  {
-    id: 'fresh-drops',
-    title: 'Fresh drops',
-    subtitle: 'New footwear just landed',
-    cta: 'Explore now',
-    category: 'footwear',
-    gradient: gradients.accent,
-    icon: 'footsteps',
-  },
-];
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -108,45 +89,7 @@ export default function HomeScreen() {
 
       {!searching ? (
         <>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.promoRow}
-            snapToInterval={320}
-            decelerationRate="fast"
-          >
-            {PROMOS.map((promo) => (
-              <Pressable
-                key={promo.id}
-                onPress={() =>
-                  router.push({ pathname: '/categories', params: { category: promo.category } })
-                }
-                style={({ pressed }) => pressed && styles.pressed}
-              >
-                <LinearGradient
-                  colors={promo.gradient}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                  style={styles.promo}
-                >
-                  <View style={styles.promoDecorA} />
-                  <View style={styles.promoDecorB} />
-                  <View style={styles.promoContent}>
-                    <Text style={styles.promoTardText}>Limited time</Text>
-                    <Text style={styles.promoTitle}>{promo.title}</Text>
-                    <Text style={styles.promoSubtitle}>{promo.subtitle}</Text>
-                    <View style={styles.promoButton}>
-                      <Text style={styles.promoButtonText}>{promo.cta}</Text>
-                      <Ionicons name="arrow-forward" size={14} color={colors.ink} />
-                    </View>
-                  </View>
-                  <View style={styles.promoIcon}>
-                    <Ionicons name={`${promo.icon}-outline`} size={68} color="rgba(255,255,255,0.28)" />
-                  </View>
-                </LinearGradient>
-              </Pressable>
-            ))}
-          </ScrollView>
+          <PromoCarousel />
 
           <View style={styles.sectionHead}>
             <Text style={styles.sectionTitle}>Categories</Text>
@@ -155,11 +98,7 @@ export default function HomeScreen() {
             </Pressable>
           </View>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.categoryRow}
-          >
+          <HScroll contentContainerStyle={styles.categoryRow} arrows={false}>
             {categories.map((category) => (
               <Pressable
                 key={category.id}
@@ -178,7 +117,7 @@ export default function HomeScreen() {
                 <Text style={styles.categoryLabel}>{category.name}</Text>
               </Pressable>
             ))}
-          </ScrollView>
+          </HScroll>
 
           <View style={styles.sectionHead}>
             <Text style={styles.sectionTitle}>Popular right now</Text>
@@ -192,20 +131,7 @@ export default function HomeScreen() {
             </Pressable>
           </View>
 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.featuredRow}
-          >
-            {bestSellers.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                compact
-                onPress={() => router.push(`/product/${product.id}`)}
-              />
-            ))}
-          </ScrollView>
+          <ProductRail products={bestSellers} />
         </>
       ) : null}
 

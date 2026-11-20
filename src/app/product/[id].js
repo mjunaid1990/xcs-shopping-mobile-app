@@ -13,7 +13,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AppButton from '../../components/AppButton';
-import ProductCard from '../../components/ProductCard';
+import ProductRail from '../../components/ProductRail';
 import QtyStepper from '../../components/QtyStepper';
 import Rating from '../../components/Rating';
 import { useCart } from '../../context/CartContext';
@@ -177,20 +177,7 @@ export default function ProductDetailScreen() {
           </View>
         </View>
 
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.relatedRow}
-        >
-          {related.map((item) => (
-            <ProductCard
-              key={item.id}
-              product={item}
-              compact
-              onPress={() => router.push(`/product/${item.id}`)}
-            />
-          ))}
-        </ScrollView>
+        <ProductRail products={related} height={300} />
       </ScrollView>
 
       <View style={styles.topBar}>
