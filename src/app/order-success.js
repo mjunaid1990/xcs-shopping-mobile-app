@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, Platform, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import AppButton from '../components/AppButton';
@@ -21,13 +21,15 @@ export default function OrderSuccessScreen() {
   const total = String(params.total ?? '0.00');
   const itemCount = String(params.itemCount ?? '1');
 
+  const nativeDriver = Platform.OS !== 'web';
+
   useEffect(() => {
     Animated.parallel([
-      Animated.spring(scale, { toValue: 1, friction: 6, tension: 80, useNativeDriver: true }),
-      Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: true }),
-      Animated.timing(rise, { toValue: 0, duration: 420, useNativeDriver: true }),
+      Animated.spring(scale, { toValue: 1, friction: 6, tension: 80, useNativeDriver: nativeDriver }),
+      Animated.timing(fade, { toValue: 1, duration: 420, useNativeDriver: nativeDriver }),
+      Animated.timing(rise, { toValue: 0, duration: 420, useNativeDriver: nativeDriver }),
     ]).start();
-  }, [scale, fade, rise]);
+  }, [scale, fade, rise, nativeDriver]);
 
   return (
     <View style={[styles.screen, { paddingTop: insets.top + 30, paddingBottom: insets.bottom + 20 }]}>

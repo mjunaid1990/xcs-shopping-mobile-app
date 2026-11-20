@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -7,14 +7,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radius, shadow } from '../theme';
 
 export default function ScreenHeader({ title, subtitle, right, showBack = true }) {
-  const navigation = useNavigation();
+  const router = useRouter();
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
       {showBack ? (
         <Pressable
-          onPress={() => navigation.goBack()}
+          onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))}
           hitSlop={8}
           style={({ pressed }) => [styles.back, pressed && styles.pressed]}
           accessibilityLabel="Go back"

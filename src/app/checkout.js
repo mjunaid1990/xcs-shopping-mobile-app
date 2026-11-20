@@ -177,7 +177,7 @@ export default function CheckoutScreen() {
             label="Full name"
             value={form.name}
             onChangeText={(text) => update('name', text)}
-            placeholder="Junaid Ahmed"
+            placeholder="John Doe"
             error={errors.name}
             autoCapitalize="words"
           />

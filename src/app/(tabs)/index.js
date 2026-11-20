@@ -68,7 +68,7 @@ export default function HomeScreen() {
           </LinearGradient>
           <View>
             <Text style={styles.hello}>Good morning</Text>
-            <Text style={styles.userName}>Junaid</Text>
+            <Text style={styles.userName}>John Doe</Text>
           </View>
         </View>
         <Pressable
