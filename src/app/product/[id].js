@@ -182,7 +182,7 @@ export default function ProductDetailScreen() {
 
       <View style={styles.topBar}>
         <Pressable
-          onPress={() => router.back()}
+          onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))}
           style={({ pressed }) => [styles.circleButton, pressed && styles.pressed]}
           accessibilityLabel="Go back"
         >
